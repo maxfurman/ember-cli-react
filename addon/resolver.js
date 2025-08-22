@@ -1,10 +1,10 @@
 import { classify } from '@ember/string';
 import { get } from '@ember/object';
-import Resolver from 'ember-resolver';
+import EmberResolver from 'ember-resolver';
 
 import ReactComponent from 'ember-cli-react/components/react-component';
 
-export default Resolver.extend({
+export default class Resolver extends EmberResolver {
   // `resolveComponent` is triggered when rendering a component in template.
   // For example, having `{{foo-bar}}` in a template will trigger `resolveComponent`
   // with the name full name of `component:foo-bar`.
@@ -29,7 +29,7 @@ export default Resolver.extend({
         reactComponent: result,
       });
     }
-  },
+  }
 
   // This resolver method is defined when we try to lookup from `react-component`.
   // We create a new namespace `react-component:the-component` for them.
@@ -39,7 +39,7 @@ export default Resolver.extend({
       this._resolveReactStyleFile(parsedName) || this.resolveOther(parsedName);
     parsedName.type = 'react-component';
     return result;
-  },
+  }
 
   // This resolver method attempt to find a file with React-style file name.
   // A React-style file name is in PascalCase.
@@ -58,5 +58,5 @@ export default Resolver.extend({
     });
     const result = this.resolveOther(parsedNameWithPascalCase);
     return result;
-  },
-});
+  }
+}
